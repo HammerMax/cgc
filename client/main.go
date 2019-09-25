@@ -1,22 +1,41 @@
 package main
 
-import (
-	"fmt"
-	"net"
-)
+import "fmt"
+
+type demo struct {
+	str string
+}
+
+func (d *demo) changeStr() {
+	d.str = "changeStr le"
+}
+
+func (d demo) cc() {
+	d.str = "ccc"
+}
+
+type mapDemo map[string]string
+
+func (m mapDemo) mapchange() {
+	m["11"] = "11"
+}
 
 func main() {
-	conn, err := net.Dial("tcp", "localhost:9999")
-	if err != nil {
-		fmt.Println(err)
-		return
+	d := demo{str: "f"}
+	fmt.Println(d)
+
+	d.changeStr()
+	fmt.Println(d)
+
+	d.cc()
+	fmt.Println(d)
+
+	mm := mapDemo{
+		"11" : "demo",
 	}
+	fmt.Println(mm)
 
-	fmt.Println("开始阅读")
-	var read []byte
-	conn.Read(read)
-	fmt.Println(string(read))
-
-	fmt.Println("写入完成")
-
+	mm.mapchange()
+	fmt.Println(mm)
 }
+
